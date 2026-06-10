@@ -4,7 +4,8 @@ import type { createUserSchema, updateUserSchema } from './user.validation.js';
 import { z } from 'zod';
 
 export type UserDb = InferSelectModel<typeof users>;
-export const UserStatus = ['active', 'inactive', 'suspended'] as const;
+export type NewUserDb = InferInsertModel<typeof users>;
+export const UserStatus = ['active', 'pending'] as const;
 export type UserStatus = (typeof UserStatus)[number];
 
 export type CreateUserInput = z.infer<typeof createUserSchema>;
