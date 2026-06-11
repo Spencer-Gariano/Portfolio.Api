@@ -3,6 +3,10 @@ import z from 'zod';
 
 export type HttpMethod = 'get' | 'post' | 'put' | 'delete' | 'patch';
 
+export type OpenApiServer = {
+  url: string;
+};
+
 export type OpenApiConfig = {
   openapi: string;
   info: {
@@ -11,6 +15,7 @@ export type OpenApiConfig = {
     termsOfService?: string;
     version: string;
   };
+  servers: OpenApiServer[];
 };
 
 export type ResponseInput = {

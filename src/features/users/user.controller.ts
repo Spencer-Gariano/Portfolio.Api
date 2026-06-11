@@ -1,9 +1,13 @@
 import { createUserSchema, updateUserSchema, uuidSchema } from './user.validation.js';
 import type { Request, Response } from 'express';
 import { userService } from './user.service.js';
+import type { OrderBy, UserSort } from './user.type.js';
 
-export async function getUsers(reg: Request, res: Response) {
-  const users = await userService.getUsers();
+export async function getUsers(req: Request, res: Response) {
+  const sort = (req.query.sort as UserSort) ?? 'firstName';
+  const order = (req.query.order as OrderBy) ?? 'asc';
+
+  const users = await userService.getUsers({ sort, order });
 
   return res.status(200).json(users);
 }
