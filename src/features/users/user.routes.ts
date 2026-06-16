@@ -10,6 +10,7 @@ import {
   userSchema,
 } from './user.validation.js';
 import { z } from 'zod';
+import { apiTokenHandler } from '../../middleware/api.token.handler.js';
 
 const users = createFeatureRouter('/users');
 const base = '/';
@@ -42,14 +43,19 @@ registerRoute(
 // POST /users
 registerRoute(
   users,
-
   {
     method: 'post',
     path: base,
     summary: 'Create user',
+    security: [
+      {
+        ApiTokenAuth: [],
+      },
+    ],
     request: {
       body: { content: { 'application/json': { schema: createUserSchema } }, required: true },
     },
+    middlewares: [apiTokenHandler],
     responses: {
       201: {
         description: 'User created',
@@ -102,10 +108,16 @@ registerRoute(
     method: 'put',
     path: singleResource,
     summary: 'Update user',
+    security: [
+      {
+        ApiTokenAuth: [],
+      },
+    ],
     request: {
       params: singleResourceUserParams,
       body: { content: { 'application/json': { schema: updateUserSchema } }, required: true },
     },
+    middlewares: [apiTokenHandler],
     responses: {
       200: {
         description: 'User updated',
@@ -126,9 +138,15 @@ registerRoute(
     method: 'delete',
     path: singleResource,
     summary: 'Delete user',
+    security: [
+      {
+        ApiTokenAuth: [],
+      },
+    ],
     request: {
       params: singleResourceUserParams,
     },
+    middlewares: [apiTokenHandler],
     responses: {
       204: {
         description: 'User deleted',

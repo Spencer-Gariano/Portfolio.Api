@@ -1,4 +1,5 @@
 import type { ResponseConfig, ZodRequestBody } from '@asteasolutions/zod-to-openapi';
+import type { RequestHandler } from 'express';
 import z from 'zod';
 
 export type HttpMethod = 'get' | 'post' | 'put' | 'delete' | 'patch';
@@ -35,7 +36,9 @@ export interface IRouteDefinition {
   method: HttpMethod;
   path: string;
   summary?: string;
+  security?: Array<Record<string, string[]>>;
   request?: IRouteRequest;
+  middlewares?: RequestHandler[];
   responses: {
     [statusCode: string]: ResponseConfig;
   };
