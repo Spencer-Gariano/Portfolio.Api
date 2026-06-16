@@ -28,11 +28,11 @@ export function registerRoute(
   config: IRouteDefinition,
   handler: RequestHandler,
 ) {
-  const { method, path, summary, request, responses } = config;
+  const { method, path, summary, request, security, responses, middlewares } = config;
 
   // Register express route
   const register = feature.router[method].bind(feature.router);
-  register(path, handler);
+  register(path, ...(middlewares ?? []), handler);
 
   // OpenAPI registration
   // Full OpenAPI path
@@ -42,6 +42,7 @@ export function registerRoute(
     method,
     path: fullPath,
     ...(summary ? { summary } : {}),
+    ...(security ? { security } : {}),
     ...(request ? { request } : {}),
     responses: responses,
   });

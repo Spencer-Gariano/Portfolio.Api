@@ -13,4 +13,9 @@ export function registerSchemas() {
   registry.register('CreateUser', createUserSchema);
   registry.register('UpdateUser', updateUserSchema);
   registry.register('UserParams', singleResourceUserParams);
+  registry.registerComponent('securitySchemes', 'ApiTokenAuth', {
+    type: 'apiKey',
+    in: 'header',
+    name: 'x-api-token',
+  });
 }
