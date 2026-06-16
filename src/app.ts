@@ -11,6 +11,7 @@ const allowedOrigins = isDevelopment
   ? ['http://localhost:5173', 'https://local.spencergariano.dev']
   : ['https://spencergariano.dev', 'https://www.spencergariano.dev'];
 
+logger.info(allowedOrigins.join(', '));
 const app = express();
 //Enable CORS
 app.use(
