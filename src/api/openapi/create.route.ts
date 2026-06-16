@@ -9,6 +9,7 @@ export interface ICreateRouteConfig {
   path: string;
   summary?: string;
   request?: IRouteRequest;
+  security?: Array<Record<string, string[]>>;
   responses: {
     [statusCode: string]: ResponseConfig;
   };
@@ -19,7 +20,7 @@ function toOpenAPIPath(path: string) {
 }
 
 export function createRoute(config: ICreateRouteConfig) {
-  const { method, request, responses, summary } = config;
+  const { method, request, responses, summary, security } = config;
   const openApiPath = toOpenAPIPath(config.path);
 
   const configRequest: RouteConfig['request'] = { ...request };
@@ -29,6 +30,7 @@ export function createRoute(config: ICreateRouteConfig) {
     method,
     path: openApiPath,
     ...(summary ? { summary } : {}),
+    ...(security ? { security } : {}),
     request: configRequest,
     responses: configResponse,
   });

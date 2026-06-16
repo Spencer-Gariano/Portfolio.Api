@@ -10,6 +10,10 @@ export function generateOpenApi() {
     info: {
       version: '1.0.0',
       title: 'Portfolio API',
+      description: `
+Demo API Token: portfolio-demo-token\n
+Required for POST, PUT, and DELETE operations.
+`,
     },
     servers: [
       {
