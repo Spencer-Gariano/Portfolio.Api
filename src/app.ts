@@ -11,7 +11,6 @@ const allowedOrigins = isDevelopment
   ? ['http://localhost:5173', 'https://local.spencergariano.dev']
   : ['https://spencergariano.dev', 'https://www.spencergariano.dev'];
 
-logger.info(allowedOrigins.join(', '));
 const app = express();
 //Enable CORS
 app.use(
@@ -29,14 +28,6 @@ app.use(
     allowedHeaders: ['Content-Type', 'Authorization'],
   }),
 );
-// app.options(
-//   '*',
-//   cors({
-//     origin: allowedOrigins,
-//     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-//     allowedHeaders: ['Content-Type', 'Authorization'],
-//   }),
-// );
 
 app.use(express.json());
 app.use(requestLogger);
